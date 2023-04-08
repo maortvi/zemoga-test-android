@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Zemoga Test</string>
+    <string name="search_recipe">Search Recipe</string>
+    <string name="search_recipe_placeholder">Cheesecake with …</string>
+    <string name="recipe_detail">Recipe Detail</string>
+    <string name="back_button">Back</string>
+    <string name="info_content_description">Information</string>
+</resources>
