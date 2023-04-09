@@ -1,9 +1,10 @@
-package com.example.zemogatest.ui.recipeslist
+package com.example.zemogatest.ui.postslist
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.zemogatest.domain.usecase.LoadRecipesListUseCase
+import com.example.zemogatest.domain.model.PostModel
+import com.example.zemogatest.domain.usecase.LoadPostsListUseCase
 import com.example.zemogatest.domain.usecase.base.UseCaseResult
 import com.example.zemogatest.ui.navigation.AppDirections
 import com.example.zemogatest.ui.navigation.NavigationManager
@@ -13,44 +14,38 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RecipesListViewModel
+class PostsListViewModel
 @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val navigationManager: NavigationManager,
-    private val loadRecipesListUseCase: LoadRecipesListUseCase
+    private val loadPostsListUseCase: LoadPostsListUseCase
 ) : ViewModel() {
 
-    var screenModel by savedStateHandle.mutableStateOf(RecipesListScreenModel())
+    var screenModel by savedStateHandle.mutableStateOf(PostsListScreenModel())
         private set
 
     init {
-        loadRecipesList()
+        loadPostsList()
     }
 
-    private fun loadRecipesList() = viewModelScope.launch {
-        when (val result = loadRecipesListUseCase.invoke(Unit)) {
+    private fun loadPostsList() = viewModelScope.launch {
+        when (val result = loadPostsListUseCase.invoke(Unit)) {
             is UseCaseResult.Success -> {
                 screenModel = screenModel.copy(
-                    recipes = result.data.map {
-                        it.title
-                    }
+                    posts = result.data
                 )
             }
             is UseCaseResult.Error -> {
                 // TODO: Display error dialog to the user
                 screenModel = screenModel.copy(
-                    recipes = emptyList()
+                    posts = emptyList()
                 )
             }
         }
     }
 
-    fun onRecipeItemClick(title: String) = viewModelScope.launch {
-        navigationManager.navigate(AppDirections.RecipeDetail(title))
-    }
-
-    fun onSearchClick() = viewModelScope.launch {
-        navigationManager.navigate(AppDirections.SearchRecipe)
+    fun onPostItemClick(post: PostModel) = viewModelScope.launch {
+        navigationManager.navigate(AppDirections.PostDetails(post))
     }
 
 }

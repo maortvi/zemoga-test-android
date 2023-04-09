@@ -9,24 +9,25 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.zemogatest.R
+import com.example.zemogatest.domain.model.PostModel
 
 @Composable
 fun DefaultItemView(
     modifier: Modifier = Modifier,
-    title: String,
-    onItemClick: () -> Unit
+    post: PostModel,
+    onItemClick: (PostModel) -> Unit
 ) {
     Surface(
         modifier = modifier
             .fillMaxWidth()
-            .clickable(onClick = { onItemClick() })
+            .clickable(onClick = { onItemClick(post) })
     ) {
 
         Row(
@@ -42,12 +43,15 @@ fun DefaultItemView(
             horizontalArrangement = Arrangement.Start
         ) {
             Text(
-                text = title,
+                text = post.title,
                 modifier = modifier
                     .weight(1F)
+                    .padding(
+                        end = 5.dp
+                    )
             )
             Icon(
-                imageVector = Icons.Filled.Info,
+                imageVector = Icons.Filled.Star,
                 contentDescription = stringResource(R.string.info_content_description)
             )
         }

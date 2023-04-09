@@ -7,22 +7,20 @@ import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.example.zemogatest.domain.model.PostModel
+import com.example.zemogatest.domain.model.CommentModel
 
 @Composable
-fun DefaultListView(
-    posts: List<PostModel>,
-    onItemClick: (PostModel) -> Unit
+fun CommentsListView(
+    comments: List<CommentModel>,
 ) {
 
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth(),
     ) {
-        itemsIndexed(posts) { _, item ->
-            DefaultItemView(
-                post = item,
-                onItemClick = onItemClick
+        itemsIndexed(comments) { _, item ->
+            CommentItemView(
+                comment = item,
             )
             Divider(color = Color.LightGray)
         }

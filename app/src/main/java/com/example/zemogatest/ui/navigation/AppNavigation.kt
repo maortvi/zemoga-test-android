@@ -3,29 +3,23 @@ package com.example.zemogatest.ui.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.example.zemogatest.ui.recipedetail.RecipeDetailScreen
-import com.example.zemogatest.ui.recipeslist.RecipesListScreen
-import com.example.zemogatest.ui.searchrecipe.SearchRecipeScreen
+import com.example.zemogatest.ui.postdetails.PostDetailsScreen
+import com.example.zemogatest.ui.postslist.PostsListScreen
 
 fun NavGraphBuilder.navigationGraph() {
     navigation(
-        startDestination = AppDirections.RecipesList::class.toString(),
+        startDestination = AppDirections.PostsList::class.toString(),
         route = AppDirections.Main::class.toString()
     ) {
         composable(
-            route = AppDirections.RecipesList::class.toString()
+            route = AppDirections.PostsList::class.toString()
         ) {
-            RecipesListScreen()
+            PostsListScreen()
         }
         composable(
-            route = AppDirections.SearchRecipe::class.toString()
+            route = AppDirections.PostDetails::class.toString()
         ) {
-            SearchRecipeScreen()
-        }
-        composable(
-            route = AppDirections.RecipeDetail::class.toString()
-        ) {
-            RecipeDetailScreen()
+            PostDetailsScreen()
         }
     }
 }

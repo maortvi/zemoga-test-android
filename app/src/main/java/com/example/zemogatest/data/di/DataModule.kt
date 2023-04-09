@@ -1,10 +1,10 @@
 package com.example.zemogatest.data.di
 
-import com.example.zemogatest.data.api.RecipeApi
-import com.example.zemogatest.data.network.api.KtorRecipeApi
-import com.example.zemogatest.data.repository.RecipeRepositoryImpl
+import com.example.zemogatest.data.api.JsonPlaceholderApi
+import com.example.zemogatest.data.network.api.KtorJsonPlaceholderApi
+import com.example.zemogatest.data.repository.JsonPlaceholderRepositoryImpl
 import com.example.zemogatest.domain.di.IODispatcher
-import com.example.zemogatest.domain.repository.RecipeRepository
+import com.example.zemogatest.domain.repository.JsonPlaceholderRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,22 +30,23 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideRecipeRepository(
+    fun provideJsonPlaceholderRepository(
         @IODispatcher coroutineDispatcher: CoroutineDispatcher,
-        recipeApi: RecipeApi,
-    ): RecipeRepository {
-        return RecipeRepositoryImpl(
+        jsonPlaceholderApi: JsonPlaceholderApi,
+    ): JsonPlaceholderRepository {
+        return JsonPlaceholderRepositoryImpl(
             coroutineDispatcher = coroutineDispatcher,
-            recipeApi = recipeApi,
+            jsonPlaceholderApi = jsonPlaceholderApi,
         )
     }
 
     @Provides
     @Singleton
-    fun provideRecipeApi(
-        @EmpowermentLabsHttpClient httpClient: HttpClient,
-    ): RecipeApi =
-        KtorRecipeApi(
+    fun provideJsonPlaceholderApi(
+        @ZemogaHttpClient httpClient: HttpClient,
+    ): JsonPlaceholderApi =
+        KtorJsonPlaceholderApi(
             httpClient
         )
+
 }

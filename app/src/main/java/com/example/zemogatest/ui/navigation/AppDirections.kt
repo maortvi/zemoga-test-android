@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavOptionsBuilder
+import com.example.zemogatest.domain.model.PostModel
 
 sealed class AppDirections(
     override val args: Bundle? = null,
@@ -17,7 +18,7 @@ sealed class AppDirections(
         }
     )
 
-    object RecipesList : AppDirections(
+    object PostsList : AppDirections(
         navBuilder = {
             launchSingleTop = true
             popUpTo(0) { inclusive = true }
@@ -26,13 +27,13 @@ sealed class AppDirections(
 
     object SearchRecipe : AppDirections()
 
-    class RecipeDetail(title: String) : AppDirections(
-        args = bundleOf(RecipeTitleId to title)
+    class PostDetails(post: PostModel) : AppDirections(
+        args = bundleOf(POST_MODEL_KEY to post)
     ) {
         companion object {
-            private const val RecipeTitleId = "recipe_title_id"
-            fun SavedStateHandle.getRecipeTitle(): String =
-                this.get<String>(RecipeTitleId)!!
+            private const val POST_MODEL_KEY = "post-model-key"
+            fun SavedStateHandle.getPost(): PostModel =
+                this.get<PostModel>(POST_MODEL_KEY)!!
         }
     }
 

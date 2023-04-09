@@ -27,16 +27,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    @EmpowermentLabsHttpClient
+    @ZemogaHttpClient
     fun provideHttpClient(
         json: Json,
         okHttpClient: OkHttpClient,
     ): HttpClient = HttpClient(OkHttp) {
         defaultRequest {
-            host = "api.spoonacular.com/recipes"
-            headers {
-                append("x-api-key", "6c86517c560c44f5a4fda57451506069")
-            }
+            host = "jsonplaceholder.typicode.com"
             if (!headers.contains(HttpHeaders.ContentType)) {
                 contentType(ContentType.Application.Json)
             }
@@ -103,4 +100,4 @@ object NetworkModule {
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class EmpowermentLabsHttpClient
+annotation class ZemogaHttpClient
