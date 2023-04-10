@@ -7,20 +7,15 @@ import com.example.zemogatest.domain.usecase.base.BaseUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
-class LoadPostsListUseCase
+class ClearPostsListUseCase
 @Inject constructor(
     @IODispatcher coroutineDispatcher: CoroutineDispatcher,
     private val jsonPlaceholderRepository: JsonPlaceholderRepository,
 ) : BaseUseCase<Unit, List<PostModel>>(coroutineDispatcher) {
 
     override suspend fun run(params: Unit): List<PostModel> {
-        var posts = jsonPlaceholderRepository.loadPostsFromDatabase()
-        if (posts.isEmpty()) {
-            jsonPlaceholderRepository.clearNonFavoritePosts()
-            posts = jsonPlaceholderRepository.loadPostsFromApi()
-            jsonPlaceholderRepository.insertPosts(posts)
-        }
-        return posts
+        jsonPlaceholderRepository.clearNonFavoritePosts()
+        return jsonPlaceholderRepository.loadPostsFromDatabase()
     }
 
 }

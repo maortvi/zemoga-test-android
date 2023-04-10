@@ -3,12 +3,10 @@ package com.example.zemogatest.ui.postdetails
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.zemogatest.domain.usecase.AddPostToFavoritesUseCase
-import com.example.zemogatest.domain.usecase.GetPostCommentsUseCase
-import com.example.zemogatest.domain.usecase.GetUserInfoUseCase
-import com.example.zemogatest.domain.usecase.RemovePostFromFavoritesUseCase
+import com.example.zemogatest.domain.usecase.*
 import com.example.zemogatest.domain.usecase.base.UseCaseResult
 import com.example.zemogatest.ui.navigation.AppDirections.PostDetails.Companion.getPost
+import com.example.zemogatest.ui.navigation.NavigationManager
 import com.example.zemogatest.ui.utils.mockListOfComments
 import com.example.zemogatest.ui.utils.mockUser
 import com.example.zemogatest.ui.utils.mutableStateOf
@@ -20,10 +18,12 @@ import javax.inject.Inject
 class PostDetailsViewModel
 @Inject constructor(
     savedStateHandle: SavedStateHandle,
+    private val navigationManager: NavigationManager,
     private val getUserInfoUseCase: GetUserInfoUseCase,
     private val getPostCommentsUseCase: GetPostCommentsUseCase,
     private val addPostToFavoritesUseCase: AddPostToFavoritesUseCase,
     private val removePostFromFavoritesUseCase: RemovePostFromFavoritesUseCase,
+    private val deletePostUseCase: DeletePostUseCase,
 ) : ViewModel() {
 
     private val post = savedStateHandle.getPost()
@@ -117,6 +117,15 @@ class PostDetailsViewModel
         }
     }
 
-    fun onDeletePostClick() = viewModelScope.launch { }
+    fun onDeletePostClick() = viewModelScope.launch {
+        when (deletePostUseCase.invoke(post.id)) {
+            is UseCaseResult.Success -> {
+                navigationManager.navigateBack()
+            }
+            is UseCaseResult.Error -> {
+                // TODO: Display error dialog to the user
+            }
+        }
+    }
 
 }

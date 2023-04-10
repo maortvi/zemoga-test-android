@@ -4,7 +4,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.zemogatest.domain.model.PostModel
+import com.example.zemogatest.domain.usecase.ClearPostsListUseCase
 import com.example.zemogatest.domain.usecase.LoadPostsListUseCase
+import com.example.zemogatest.domain.usecase.ReloadPostsListUseCase
 import com.example.zemogatest.domain.usecase.base.UseCaseResult
 import com.example.zemogatest.ui.navigation.AppDirections
 import com.example.zemogatest.ui.navigation.NavigationManager
@@ -18,7 +20,9 @@ class PostsListViewModel
 @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val navigationManager: NavigationManager,
-    private val loadPostsListUseCase: LoadPostsListUseCase
+    private val loadPostsListUseCase: LoadPostsListUseCase,
+    private val reloadPostsListUseCase: ReloadPostsListUseCase,
+    private val clearPostsListUseCase: ClearPostsListUseCase
 ) : ViewModel() {
 
     var screenModel by savedStateHandle.mutableStateOf(PostsListScreenModel())
@@ -42,6 +46,35 @@ class PostsListViewModel
 
     fun onPostItemClick(post: PostModel) = viewModelScope.launch {
         navigationManager.navigate(AppDirections.PostDetails(post))
+    }
+
+    fun onReloadPostsClick() = viewModelScope.launch {
+        when (val result = reloadPostsListUseCase.invoke(Unit)) {
+            is UseCaseResult.Success -> {
+                screenModel = screenModel.copy(
+                    posts = result.data
+                )
+            }
+            is UseCaseResult.Error -> {
+                // TODO: Display error dialog to the user
+                screenModel = screenModel.copy(
+                    posts = emptyList()
+                )
+            }
+        }
+    }
+
+    fun onClearPostsClick() = viewModelScope.launch {
+        when (val result = clearPostsListUseCase.invoke(Unit)) {
+            is UseCaseResult.Success -> {
+                screenModel = screenModel.copy(
+                    posts = result.data
+                )
+            }
+            is UseCaseResult.Error -> {
+                // TODO: Display error dialog to the user
+            }
+        }
     }
 
 }

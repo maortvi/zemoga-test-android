@@ -12,7 +12,7 @@ interface JsonPlaceholderRepository {
 
     suspend fun insertPosts(posts: List<PostModel>)
 
-    suspend fun clearPosts()
+    suspend fun clearNonFavoritePosts()
 
     suspend fun getUserInfo(id: Int): UserModel
 
@@ -21,5 +21,6 @@ interface JsonPlaceholderRepository {
     suspend fun addPostToFavorites(postId: Int): Boolean
 
     suspend fun removePostFromFavorites(postId: Int): Boolean
+    suspend fun deletePost(postId: Int): Boolean
 
 }

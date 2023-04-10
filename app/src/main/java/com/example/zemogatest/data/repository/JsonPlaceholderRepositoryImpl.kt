@@ -35,9 +35,9 @@ class JsonPlaceholderRepositoryImpl(
             })
         }
 
-    override suspend fun clearPosts() =
+    override suspend fun clearNonFavoritePosts() =
         withContext(coroutineDispatcher) {
-            postDao.deletePosts()
+            postDao.deleteNonFavoritePosts()
         }
 
     override suspend fun getUserInfo(id: Int): UserModel =
@@ -62,6 +62,15 @@ class JsonPlaceholderRepositoryImpl(
     override suspend fun removePostFromFavorites(postId: Int): Boolean =
         withContext(coroutineDispatcher) {
             val result = postDao.removePostFromFavorites(postId)
+            when {
+                result >= 1 -> true
+                else -> false
+            }
+        }
+
+    override suspend fun deletePost(postId: Int): Boolean =
+        withContext(coroutineDispatcher) {
+            val result = postDao.deletePost(postId)
             when {
                 result >= 1 -> true
                 else -> false

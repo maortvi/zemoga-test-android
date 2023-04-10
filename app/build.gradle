@@ -79,6 +79,14 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+    testImplementation "androidx.arch.core:core-testing:2.2.0"
+    testImplementation "androidx.test:core:1.5.0"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0"
+    testImplementation "org.mockito:mockito-inline:3.11.2"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
+    testImplementation "org.robolectric:robolectric:4.6.1"
+    testImplementation "io.ktor:ktor-client-mock:1.6.7"
+
 }
 
 // Allow references to generated code
