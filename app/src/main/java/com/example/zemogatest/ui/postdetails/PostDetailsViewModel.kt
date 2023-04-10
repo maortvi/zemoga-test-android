@@ -3,8 +3,10 @@ package com.example.zemogatest.ui.postdetails
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.zemogatest.domain.usecase.AddPostToFavoritesUseCase
 import com.example.zemogatest.domain.usecase.GetPostCommentsUseCase
 import com.example.zemogatest.domain.usecase.GetUserInfoUseCase
+import com.example.zemogatest.domain.usecase.RemovePostFromFavoritesUseCase
 import com.example.zemogatest.domain.usecase.base.UseCaseResult
 import com.example.zemogatest.ui.navigation.AppDirections.PostDetails.Companion.getPost
 import com.example.zemogatest.ui.utils.mockListOfComments
@@ -20,6 +22,8 @@ class PostDetailsViewModel
     savedStateHandle: SavedStateHandle,
     private val getUserInfoUseCase: GetUserInfoUseCase,
     private val getPostCommentsUseCase: GetPostCommentsUseCase,
+    private val addPostToFavoritesUseCase: AddPostToFavoritesUseCase,
+    private val removePostFromFavoritesUseCase: RemovePostFromFavoritesUseCase,
 ) : ViewModel() {
 
     private val post = savedStateHandle.getPost()
@@ -36,7 +40,8 @@ class PostDetailsViewModel
     private fun loadPostInfo() = viewModelScope.launch {
         screenModel = screenModel.copy(
             title = post.title,
-            body = post.body
+            body = post.body,
+            favorite = post.favorite
         )
     }
 
@@ -71,5 +76,47 @@ class PostDetailsViewModel
             }
         }
     }
+
+    private suspend fun addPostToFavorites() {
+        when (val result = addPostToFavoritesUseCase.invoke(post.id)) {
+            is UseCaseResult.Success -> {
+                screenModel = screenModel.copy(
+                    favorite = result.data
+                )
+            }
+            is UseCaseResult.Error -> {
+                // TODO: Display error dialog to the user
+                screenModel = screenModel.copy(
+                    favorite = false
+                )
+            }
+        }
+    }
+
+    private suspend fun removePostFromFavorites() {
+        when (removePostFromFavoritesUseCase.invoke(post.id)) {
+            is UseCaseResult.Success -> {
+                screenModel = screenModel.copy(
+                    favorite = false
+                )
+            }
+            is UseCaseResult.Error -> {
+                // TODO: Display error dialog to the user
+            }
+        }
+    }
+
+    fun onFavoriteClick() = viewModelScope.launch {
+        when (screenModel.favorite) {
+            true -> {
+                removePostFromFavorites()
+            }
+            false -> {
+                addPostToFavorites()
+            }
+        }
+    }
+
+    fun onDeletePostClick() = viewModelScope.launch { }
 
 }

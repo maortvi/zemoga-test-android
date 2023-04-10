@@ -14,5 +14,6 @@ data class PostsDetailsScreenModel(
     val title: String = emptyString,
     val body: String = emptyString,
     val user: @RawValue UserModel = mockUser,
-    val comments: List<@RawValue CommentModel> = mockListOfComments
+    val comments: List<@RawValue CommentModel> = mockListOfComments,
+    val favorite: Boolean = false
 ) : Parcelable

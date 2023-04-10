@@ -9,12 +9,20 @@ import javax.inject.Inject
 
 class LoadPostsListUseCase
 @Inject constructor(
-    @IODispatcher
-    coroutineDispatcher: CoroutineDispatcher,
-    private val jsonPlaceholderRepository: JsonPlaceholderRepository
+    @IODispatcher coroutineDispatcher: CoroutineDispatcher,
+    private val jsonPlaceholderRepository: JsonPlaceholderRepository,
 ) : BaseUseCase<Unit, List<PostModel>>(coroutineDispatcher) {
 
-    override suspend fun run(params: Unit) =
-        jsonPlaceholderRepository.loadPosts()
+    override suspend fun run(params: Unit): List<PostModel> {
+        var posts = jsonPlaceholderRepository.loadPostsFromDatabase()
+        if (posts.isEmpty()) {
+            jsonPlaceholderRepository.clearPosts()
+            posts = jsonPlaceholderRepository.loadPostsFromApi()
+            jsonPlaceholderRepository.insertPosts(posts)
+        }
+        return posts
+    }
+
 
 }
+

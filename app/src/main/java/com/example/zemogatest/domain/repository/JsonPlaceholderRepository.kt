@@ -6,10 +6,20 @@ import com.example.zemogatest.domain.model.UserModel
 
 interface JsonPlaceholderRepository {
 
-    suspend fun loadPosts(): List<PostModel>
+    suspend fun loadPostsFromApi(): List<PostModel>
+
+    suspend fun loadPostsFromDatabase(): List<PostModel>
+
+    suspend fun insertPosts(posts: List<PostModel>)
+
+    suspend fun clearPosts()
 
     suspend fun getUserInfo(id: Int): UserModel
 
     suspend fun getPostComments(postId: Int): List<CommentModel>
+
+    suspend fun addPostToFavorites(postId: Int): Boolean
+
+    suspend fun removePostFromFavorites(postId: Int): Boolean
 
 }

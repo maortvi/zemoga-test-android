@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Zemoga Test</string>
-    <string name="search_recipe">Search Recipe</string>
-    <string name="search_recipe_placeholder">Cheesecake with …</string>
-    <string name="recipe_detail">Recipe Detail</string>
-    <string name="back_button">Back</string>
-    <string name="info_content_description">Information</string>
+    <string name="add_to_favorites">Add to Favorites</string>
+    <string name="remove_from_favorites">Remove from Favorites</string>
+    <string name="delete_post">Delete Post</string>
+    <string name="favorite_content_description">Favorite</string>
 </resources>

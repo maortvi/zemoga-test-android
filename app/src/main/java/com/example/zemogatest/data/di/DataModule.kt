@@ -3,6 +3,7 @@ package com.example.zemogatest.data.di
 import com.example.zemogatest.data.api.JsonPlaceholderApi
 import com.example.zemogatest.data.network.api.KtorJsonPlaceholderApi
 import com.example.zemogatest.data.repository.JsonPlaceholderRepositoryImpl
+import com.example.zemogatest.database.dao.PostDao
 import com.example.zemogatest.domain.di.IODispatcher
 import com.example.zemogatest.domain.repository.JsonPlaceholderRepository
 import dagger.Module
@@ -33,10 +34,12 @@ object DataModule {
     fun provideJsonPlaceholderRepository(
         @IODispatcher coroutineDispatcher: CoroutineDispatcher,
         jsonPlaceholderApi: JsonPlaceholderApi,
+        postDao: PostDao
     ): JsonPlaceholderRepository {
         return JsonPlaceholderRepositoryImpl(
             coroutineDispatcher = coroutineDispatcher,
             jsonPlaceholderApi = jsonPlaceholderApi,
+            postDao = postDao
         )
     }
 

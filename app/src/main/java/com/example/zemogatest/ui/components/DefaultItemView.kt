@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.zemogatest.R
@@ -50,10 +51,20 @@ fun DefaultItemView(
                         end = 5.dp
                     )
             )
-            Icon(
-                imageVector = Icons.Filled.Star,
-                contentDescription = stringResource(R.string.info_content_description)
-            )
+
+            if (post.favorite) {
+                Icon(
+                    imageVector = Icons.Filled.Star,
+                    contentDescription = stringResource(R.string.favorite_content_description),
+                    tint = Color.Cyan
+                )
+            } else {
+                Icon(
+                    imageVector = Icons.Filled.Star,
+                    contentDescription = stringResource(R.string.favorite_content_description),
+                    tint = Color.LightGray
+                )
+            }
         }
 
     }

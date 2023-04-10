@@ -3,6 +3,7 @@ package com.example.zemogatest.ui.postslist
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -13,6 +14,10 @@ fun PostsListScreen(
     viewModel: PostsListViewModel = hiltViewModel(),
 ) {
     val screenModel = viewModel.screenModel
+
+    LaunchedEffect(key1 = screenModel.posts) {
+        viewModel.loadPostsList()
+    }
 
     Column(
         modifier = Modifier

@@ -24,11 +24,7 @@ class PostsListViewModel
     var screenModel by savedStateHandle.mutableStateOf(PostsListScreenModel())
         private set
 
-    init {
-        loadPostsList()
-    }
-
-    private fun loadPostsList() = viewModelScope.launch {
+    fun loadPostsList() = viewModelScope.launch {
         when (val result = loadPostsListUseCase.invoke(Unit)) {
             is UseCaseResult.Success -> {
                 screenModel = screenModel.copy(

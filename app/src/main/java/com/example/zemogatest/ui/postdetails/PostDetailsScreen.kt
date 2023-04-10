@@ -3,14 +3,18 @@ package com.example.zemogatest.ui.postdetails
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.zemogatest.R
 import com.example.zemogatest.ui.components.CommentsListView
 import com.example.zemogatest.ui.theme.Typography
 
@@ -54,6 +58,31 @@ fun PostDetailsScreen(
             text = screenModel.user.email,
             style = Typography.caption
         )
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    top = 5.dp
+                ),
+            onClick = viewModel::onFavoriteClick
+        ) {
+            if (screenModel.favorite) {
+                Text(text = stringResource(id = R.string.remove_from_favorites))
+            } else {
+                Text(text = stringResource(id = R.string.add_to_favorites))
+            }
+        }
+        Button(
+            modifier = Modifier
+                .fillMaxWidth(),
+            onClick = viewModel::onDeletePostClick,
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.Red,
+                contentColor = Color.White
+            )
+        ) {
+            Text(text = stringResource(id = R.string.delete_post))
+        }
         Divider(
             modifier = Modifier
                 .padding(

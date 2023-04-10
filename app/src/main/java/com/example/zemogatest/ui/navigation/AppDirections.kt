@@ -20,12 +20,10 @@ sealed class AppDirections(
 
     object PostsList : AppDirections(
         navBuilder = {
-            launchSingleTop = true
+            launchSingleTop = false
             popUpTo(0) { inclusive = true }
         }
     )
-
-    object SearchRecipe : AppDirections()
 
     class PostDetails(post: PostModel) : AppDirections(
         args = bundleOf(POST_MODEL_KEY to post)

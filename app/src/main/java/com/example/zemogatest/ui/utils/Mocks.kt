@@ -12,6 +12,7 @@ val mockPost = PostModel(
     id = defaultId,
     title = emptyString,
     body = emptyString,
+    favorite = false
 )
 
 val mockUser = UserModel(
