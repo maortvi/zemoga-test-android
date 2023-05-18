@@ -7,11 +7,12 @@ import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.example.zemogatest.domain.model.ChildrenModel
 import com.example.zemogatest.domain.model.PostModel
 
 @Composable
 fun DefaultListView(
-    posts: List<PostModel>,
+    posts: List<ChildrenModel>,
     onItemClick: (PostModel) -> Unit
 ) {
 
@@ -21,7 +22,7 @@ fun DefaultListView(
     ) {
         itemsIndexed(posts) { _, item ->
             DefaultItemView(
-                post = item,
+                post = item.data,
                 onItemClick = onItemClick
             )
             Divider(color = Color.LightGray)

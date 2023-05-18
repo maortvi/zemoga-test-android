@@ -5,6 +5,7 @@ import com.example.zemogatest.database.dao.PostDao
 import com.example.zemogatest.database.entity.PostEntity
 import com.example.zemogatest.domain.model.CommentModel
 import com.example.zemogatest.domain.model.PostModel
+import com.example.zemogatest.domain.model.RedditPostParent
 import com.example.zemogatest.domain.model.UserModel
 import com.example.zemogatest.domain.repository.JsonPlaceholderRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -16,7 +17,7 @@ class JsonPlaceholderRepositoryImpl(
     private val postDao: PostDao
 ) : JsonPlaceholderRepository {
 
-    override suspend fun loadPostsFromApi(): List<PostModel> =
+    override suspend fun loadPostsFromApi(): RedditPostParent =
         withContext(coroutineDispatcher) {
             jsonPlaceholderApi.loadPosts()
         }

@@ -49,7 +49,7 @@ class PostsListViewModel
     }
 
     fun onReloadPostsClick() = viewModelScope.launch {
-        when (val result = reloadPostsListUseCase.invoke(Unit)) {
+        /*when (val result = reloadPostsListUseCase.invoke(Unit)) {
             is UseCaseResult.Success -> {
                 screenModel = screenModel.copy(
                     posts = result.data
@@ -61,11 +61,11 @@ class PostsListViewModel
                     posts = emptyList()
                 )
             }
-        }
+        }*/
     }
 
     fun onClearPostsClick() = viewModelScope.launch {
-        when (val result = clearPostsListUseCase.invoke(Unit)) {
+        /*when (val result = clearPostsListUseCase.invoke(Unit)) {
             is UseCaseResult.Success -> {
                 screenModel = screenModel.copy(
                     posts = result.data
@@ -74,7 +74,7 @@ class PostsListViewModel
             is UseCaseResult.Error -> {
                 // TODO: Display error dialog to the user
             }
-        }
+        }*/
     }
 
 }

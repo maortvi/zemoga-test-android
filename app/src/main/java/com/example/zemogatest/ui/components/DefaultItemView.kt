@@ -1,6 +1,5 @@
 package com.example.zemogatest.ui.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,18 +16,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.zemogatest.R
+import com.example.zemogatest.domain.model.DataModel
 import com.example.zemogatest.domain.model.PostModel
 
 @Composable
 fun DefaultItemView(
     modifier: Modifier = Modifier,
-    post: PostModel,
+    post: DataModel,
     onItemClick: (PostModel) -> Unit
 ) {
     Surface(
         modifier = modifier
             .fillMaxWidth()
-            .clickable(onClick = { onItemClick(post) })
     ) {
 
         Row(
@@ -52,19 +51,11 @@ fun DefaultItemView(
                     )
             )
 
-            if (post.favorite) {
-                Icon(
-                    imageVector = Icons.Filled.Star,
-                    contentDescription = stringResource(R.string.favorite_content_description),
-                    tint = Color.Cyan
-                )
-            } else {
-                Icon(
-                    imageVector = Icons.Filled.Star,
-                    contentDescription = stringResource(R.string.favorite_content_description),
-                    tint = Color.LightGray
-                )
-            }
+            Icon(
+                imageVector = Icons.Filled.Star,
+                contentDescription = stringResource(R.string.favorite_content_description),
+                tint = Color.LightGray
+            )
         }
 
     }

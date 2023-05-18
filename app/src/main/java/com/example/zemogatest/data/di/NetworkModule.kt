@@ -33,7 +33,7 @@ object NetworkModule {
         okHttpClient: OkHttpClient,
     ): HttpClient = HttpClient(OkHttp) {
         defaultRequest {
-            host = "jsonplaceholder.typicode.com"
+            host = "reddit.com/r"
             if (!headers.contains(HttpHeaders.ContentType)) {
                 contentType(ContentType.Application.Json)
             }

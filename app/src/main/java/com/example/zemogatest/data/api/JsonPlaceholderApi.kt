@@ -2,11 +2,12 @@ package com.example.zemogatest.data.api
 
 import com.example.zemogatest.domain.model.CommentModel
 import com.example.zemogatest.domain.model.PostModel
+import com.example.zemogatest.domain.model.RedditPostParent
 import com.example.zemogatest.domain.model.UserModel
 
 interface JsonPlaceholderApi {
 
-    suspend fun loadPosts(): List<PostModel>
+    suspend fun loadPosts(): RedditPostParent
 
     suspend fun getUserInfo(id: Int): UserModel
 

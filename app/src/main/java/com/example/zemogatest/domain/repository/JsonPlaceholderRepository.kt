@@ -2,11 +2,12 @@ package com.example.zemogatest.domain.repository
 
 import com.example.zemogatest.domain.model.CommentModel
 import com.example.zemogatest.domain.model.PostModel
+import com.example.zemogatest.domain.model.RedditPostParent
 import com.example.zemogatest.domain.model.UserModel
 
 interface JsonPlaceholderRepository {
 
-    suspend fun loadPostsFromApi(): List<PostModel>
+    suspend fun loadPostsFromApi(): RedditPostParent
 
     suspend fun loadPostsFromDatabase(): List<PostModel>
 

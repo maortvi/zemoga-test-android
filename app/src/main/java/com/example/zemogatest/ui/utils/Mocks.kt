@@ -1,6 +1,8 @@
 package com.example.zemogatest.ui.utils
 
+import com.example.zemogatest.domain.model.ChildrenModel
 import com.example.zemogatest.domain.model.CommentModel
+import com.example.zemogatest.domain.model.DataModel
 import com.example.zemogatest.domain.model.PostModel
 import com.example.zemogatest.domain.model.UserModel
 
@@ -31,5 +33,10 @@ val mockComment = CommentModel(
 )
 
 val mockListOfPosts = listOf(mockPost)
+
+val mockChildrenModel = listOf(
+    ChildrenModel("", DataModel("Title 1")),
+    ChildrenModel("", DataModel("Title 2"))
+)
 
 val mockListOfComments = listOf(mockComment)

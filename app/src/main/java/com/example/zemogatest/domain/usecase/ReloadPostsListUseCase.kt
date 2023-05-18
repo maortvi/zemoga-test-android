@@ -15,9 +15,9 @@ class ReloadPostsListUseCase
 
     override suspend fun run(params: Unit): List<PostModel> {
         var posts = jsonPlaceholderRepository.loadPostsFromApi()
-        if (posts.isNotEmpty()) {
-            jsonPlaceholderRepository.clearNonFavoritePosts()
-            jsonPlaceholderRepository.insertPosts(posts)
+        if (posts.data.children.isEmpty()) {
+//            jsonPlaceholderRepository.clearNonFavoritePosts()
+//            jsonPlaceholderRepository.insertPosts(posts)
         }
         return jsonPlaceholderRepository.loadPostsFromDatabase()
     }
